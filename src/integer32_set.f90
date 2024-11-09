@@ -66,6 +66,7 @@ contains
 
     class(int32_set), intent(inout) :: this
 
+    ! This is pretty simple, just clearing out all data and reset the size.
     this%size = 0
 
     deallocate(this%data)
