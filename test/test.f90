@@ -3,18 +3,38 @@ program test
   use :: integer32_set
   implicit none
 
-  type(int32_set) :: data
-  integer(c_int32_t) :: i, j
+  type(int32_set) :: my_set
+  integer(c_int32_t) :: i
 
+  ! Ensure that you create the memory for the set using this built-in method.
+  my_set = new_int32_set()
 
-  data = new_int32_set()
-
-  do i = 1,10
-    j = 1
-    call data%push(j)
+  ! Let us add some data, backwards.
+  do i = 10,1,-1
+    call my_set%push(i)
   end do
 
-  print*,data%size()
+  print*,"size:",my_set%size
+
+  print*,my_set%data
+
+  ! We can get it to go from min->max using the sort method.
+  call my_set%sort()
+
+  print*,"size:",my_set%size
+
+  print*,my_set%data
+
+  ! Suppose we want to remove the even numbers.
+  do i = 0,10, 2
+    call my_set%pop(i)
+  end do
+
+  print*,"size:",my_set%size
+
+  ! Tada.
+  print*,my_set%data
+
 
 
 end program test
