@@ -11,6 +11,7 @@ module integer32_set
     procedure :: push => int32_set_push
     procedure :: clear => int32_set_clear
     procedure :: pop => int32_set_pop
+    procedure :: sort => int32_sort
   end type int32_set
 
 
@@ -120,6 +121,34 @@ contains
 
     this%size = this%size - 1
   end subroutine int32_set_pop
+
+
+  subroutine int32_sort(this)
+    implicit none
+
+    class(int32_set), intent(inout) :: this
+    integer(c_int32_t) :: current, current_index
+    integer(c_int32_t) :: i
+    integer(c_int32_t), dimension(:), pointer :: new_data
+
+    allocate(new_data(this%size))
+
+    do i = 1,this%size
+      ! Find the minimum value using the built-in searchers.
+      current = minval(this%data)
+      current_index = minloc(this%data, (1))
+
+      ! Swap it to the literal max so we don't find it again.
+      ! If we do find C_INT_MAX again, that means it was already in the set.
+      this%data(current_index) = C_INT_MAX
+
+      new_data(i) = current
+    end do
+
+    ! Now deallocate old and swap the pointers.
+    deallocate(this%data)
+    this%data => new_data
+  end subroutine int32_sort
 
 
 end module integer32_set
