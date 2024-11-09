@@ -35,7 +35,7 @@ program tutorial
   ! Tada.
   print*,my_set%data
 
-  !! Don't forget to destroy the memory. :)
+  !! Don not forget to destroy the memory. :)
   call my_set%destroy()
 
   ! Which will give you a size of -1.
