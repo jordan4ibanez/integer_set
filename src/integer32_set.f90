@@ -4,6 +4,13 @@ module integer32_set
   implicit none
 
 
+  private
+
+
+  public :: int32_set
+  public :: new_int32_set
+
+
   type :: int32_set
     integer(c_int32_t), dimension(:), pointer :: data => null()
     integer(c_int32_t) :: size = 0

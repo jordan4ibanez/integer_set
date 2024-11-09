@@ -4,6 +4,13 @@ module integer64_set
   implicit none
 
 
+  private
+
+
+  public :: int64_set
+  public :: new_int64_set
+
+
   type :: int64_set
     integer(c_int64_t), dimension(:), pointer :: data => null()
     integer(c_int64_t) :: size = 0
