@@ -69,6 +69,8 @@ program tutorial
   ! Which will give you a size of -1.
   print*,my_set%size
 
+  ! And then you just use the new_int32_set function to re-use the variable.
+
   ! Using int64_set is literally the same, but you are using c_int64_t.
 end program tutorial
 
