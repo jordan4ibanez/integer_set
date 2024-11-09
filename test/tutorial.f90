@@ -24,6 +24,12 @@ program tutorial
   ! The size is still 10.
   print*,"size:",my_set%size
 
+  ! You can also do shorthand for when you're putting in explicit values.
+  call my_set%push_array([1,2,3,4,5,6,7,8,9,10])
+
+  ! The size is still 10.
+  print*,"size:",my_set%size
+
   print*,my_set%data
 
   ! We can get it to go from min->max using the sort method.
