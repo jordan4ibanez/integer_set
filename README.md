@@ -13,14 +13,14 @@ A very smol unoptimized std::set<int32_t> library.
 - int64_set
 
 
-### Add to your project:
+## Add to your project:
 ```toml
 [dependencies]
 integer_set = { git = "https://github.com/jordan4ibanez/integer_set" }
 ```
 
 
-### Example:
+## Example:
 
 ```fortran
 program tutorial
