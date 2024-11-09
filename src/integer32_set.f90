@@ -59,4 +59,14 @@ contains
   end subroutine int32_set_push
 
 
+  function int32_get_size(this) result(size)
+    implicit none
+
+    class(int32_set), intent(inout) :: this
+    integer(c_int32_t) :: size
+
+    size = this%size_internal
+  end function int32_get_size
+
+
 end module integer32_set
