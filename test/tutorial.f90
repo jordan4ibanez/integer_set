@@ -16,6 +16,14 @@ program tutorial
 
   print*,"size:",my_set%size
 
+  ! Now let us push it back in forwards.
+  do i = 1,10
+    call my_set%push(i)
+  end do
+
+  ! The size is still 10.
+  print*,"size:",my_set%size
+
   print*,my_set%data
 
   ! We can get it to go from min->max using the sort method.
