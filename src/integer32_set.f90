@@ -55,8 +55,10 @@ contains
     end do
     new_data(this%size + 1) = new_value
 
+    ! Deallocate the old pointer, swap in the new pointer.
     deallocate(this%data)
     this%data => new_data
+
     this%size = this%size + 1
   end subroutine int32_set_push
 
