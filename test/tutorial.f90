@@ -49,5 +49,5 @@ program tutorial
   ! Which will give you a size of -1.
   print*,my_set%size
 
-  ! Using int64_set is literally the same, but you're using c_int64_t.
+  ! Using int64_set is literally the same, but you are using c_int64_t.
 end program tutorial
