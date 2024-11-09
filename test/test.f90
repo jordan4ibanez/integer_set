@@ -1,4 +1,4 @@
-program test
+program tutorial
   use, intrinsic :: iso_c_binding
   use :: integer32_set
   implicit none
@@ -41,5 +41,5 @@ program test
   ! Which will give you a size of -1.
   print*,my_set%size
 
-
-end program test
+  ! Using int64_set is literally the same, but you're using c_int64_t.
+end program tutorial
