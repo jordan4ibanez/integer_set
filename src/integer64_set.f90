@@ -18,8 +18,8 @@ module integer64_set
     procedure :: push => int64_set_push
     procedure :: clear => int64_set_clear
     procedure :: pop => int64_set_pop
-    procedure :: sort => int64_sort
-    procedure :: destroy => int64_destroy
+    procedure :: sort => int64_set_sort
+    procedure :: destroy => int64_set_destroy
   end type int64_set
 
 
@@ -132,7 +132,7 @@ contains
   end subroutine int64_set_pop
 
 
-  subroutine int64_sort(this)
+  subroutine int64_set_sort(this)
     implicit none
 
     class(int64_set), intent(inout) :: this
@@ -157,17 +157,17 @@ contains
     ! Now deallocate old and swap the pointers.
     deallocate(this%data)
     this%data => new_data
-  end subroutine int64_sort
+  end subroutine int64_set_sort
 
 
-  subroutine int64_destroy(this)
+  subroutine int64_set_destroy(this)
     implicit none
 
     class(int64_set), intent(inout) :: this
 
     deallocate(this%data)
     this%size = -1
-  end subroutine int64_destroy
+  end subroutine int64_set_destroy
 
 
 end module integer64_set

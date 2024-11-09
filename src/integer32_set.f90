@@ -18,8 +18,8 @@ module integer32_set
     procedure :: push => int32_set_push
     procedure :: clear => int32_set_clear
     procedure :: pop => int32_set_pop
-    procedure :: sort => int32_sort
-    procedure :: destroy => int32_destroy
+    procedure :: sort => int32_set_sort
+    procedure :: destroy => int32_set_destroy
   end type int32_set
 
 
@@ -132,7 +132,7 @@ contains
   end subroutine int32_set_pop
 
 
-  subroutine int32_sort(this)
+  subroutine int32_set_sort(this)
     implicit none
 
     class(int32_set), intent(inout) :: this
@@ -157,17 +157,17 @@ contains
     ! Now deallocate old and swap the pointers.
     deallocate(this%data)
     this%data => new_data
-  end subroutine int32_sort
+  end subroutine int32_set_sort
 
 
-  subroutine int32_destroy(this)
+  subroutine int32_set_destroy(this)
     implicit none
 
     class(int32_set), intent(inout) :: this
 
     deallocate(this%data)
     this%size = -1
-  end subroutine int32_destroy
+  end subroutine int32_set_destroy
 
 
 end module integer32_set
