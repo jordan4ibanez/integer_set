@@ -8,6 +8,7 @@ module integer32_set
     integer(c_int32_t) :: size = 0
   contains
     procedure :: push => int32_set_push
+    procedure :: clear => int32_set_clear
   end type int32_set
 
 
@@ -55,6 +56,18 @@ contains
       this%size = this%size + 1
     end if
   end subroutine int32_set_push
+
+
+  subroutine int32_set_clear(this)
+    implicit none
+
+    class(int32_set), intent(inout) :: this
+
+    this%size = 0
+
+    deallocate(this%data)
+    allocate(this%data(0))
+  end subroutine int32_set_clear
 
 
 end module integer32_set
