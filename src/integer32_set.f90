@@ -35,7 +35,7 @@ contains
 
     found = .false.
 
-    ! See if it's in there
+    ! See if it's in there.
     do i = 1,this%size
       if (this%data(i) == new_value) then
         found = .true.
@@ -43,18 +43,21 @@ contains
       end if
     end do
 
-    ! If not, add it in to a new pointer.
-    if (.not. found) then
-      allocate(new_data(this%size + 1))
-      do i = 1,this%size
-        new_data(i) = this%data(i)
-      end do
-      new_data(this%size + 1) = new_value
-
-      deallocate(this%data)
-      this%data => new_data
-      this%size = this%size + 1
+    ! If not return.
+    if (found) then
+      return
     end if
+
+    ! Add it in to a new pointer.
+    allocate(new_data(this%size + 1))
+    do i = 1,this%size
+      new_data(i) = this%data(i)
+    end do
+    new_data(this%size + 1) = new_value
+
+    deallocate(this%data)
+    this%data => new_data
+    this%size = this%size + 1
   end subroutine int32_set_push
 
 
