@@ -1,2 +1,6 @@
 # integer_set
-My cool new project!
+A simple unoptimized integer set for fortran.
+
+## What
+
+A very smol unoptimized std::set<int32_t> library.
