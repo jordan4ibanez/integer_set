@@ -10,6 +10,7 @@ module integer32_set
   contains
     procedure :: push => int32_set_push
     procedure :: clear => int32_set_clear
+    procedure :: pop => int32_set_pop
   end type int32_set
 
 
@@ -80,7 +81,7 @@ contains
   subroutine int32_set_pop(this, value_to_pop)
     implicit none
 
-    type(int32_set), intent(inout) :: this
+    class(int32_set), intent(inout) :: this
     integer(c_int32_t), intent(in), value :: value_to_pop
     logical(c_bool) :: found
     integer(c_int32_t) :: i, j
