@@ -23,25 +23,36 @@ contains
   end function new_int32_set
 
 
-  subroutine int32_set_push(this, data)
+  subroutine int32_set_push(this, new_value)
     implicit none
 
     class(int32_set), intent(inout) :: this
-    integer(c_int32_t), intent(in), value :: data
+    integer(c_int32_t), intent(in), value :: new_value
     integer(c_int32_t) :: i
     logical(c_bool) :: found
+    integer(c_int32_t), dimension(:), pointer :: new_data
 
     found = .false.
 
+    ! See if it's in there
     do i = 1,this%size
-      if (this%data(i) == data) then
+      if (this%data(i) == new_value) then
         found = .true.
         exit
       end if
     end do
 
+    ! If not, add it in to a new pointer.
     if (.not. found) then
+      allocate(new_data(this%size + 1))
+      do i = 1,this%size
+        new_data(i) = this%data(i)
+      end do
+      new_data(this%size + 1) = new_value
 
+      deallocate(this%data)
+      this%data => new_data
+      this%size = this%size + 1
     end if
   end subroutine int32_set_push
 
