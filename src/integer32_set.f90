@@ -16,6 +16,7 @@ module integer32_set
     integer(c_int32_t) :: size = 0
   contains
     procedure :: push => int32_set_push
+    procedure :: push_array => int32_set_push_array
     procedure :: clear => int32_set_clear
     procedure :: pop => int32_set_pop
     procedure :: sort => int32_set_sort
@@ -73,6 +74,21 @@ contains
 
     this%size = this%size + 1
   end subroutine int32_set_push
+
+
+  subroutine int32_set_push_array(this, new_value_array)
+    implicit none
+
+    class(int32_set), intent(inout) :: this
+    integer(c_int32_t), dimension(:), intent(in) :: new_value_array
+    integer(c_int32_t) :: i
+
+    ! This is just a simple bolt on for shorthand.
+
+    do i = 1,size(new_value_array)
+      call this%push(new_value_array(i))
+    end do
+  end subroutine int32_set_push_array
 
 
   subroutine int32_set_clear(this)
