@@ -4,12 +4,10 @@ module integer32_set
 
 
   type :: int32_set
-    private
     integer(c_int32_t), dimension(:), pointer :: data => null()
     integer(c_int32_t) :: size_internal = 0
   contains
     procedure :: push => int32_set_push
-    procedure :: size => int32_get_size
   end type int32_set
 
 
@@ -57,16 +55,6 @@ contains
       this%size_internal = this%size_internal + 1
     end if
   end subroutine int32_set_push
-
-
-  function int32_get_size(this) result(size)
-    implicit none
-
-    class(int32_set), intent(inout) :: this
-    integer(c_int32_t) :: size
-
-    size = this%size_internal
-  end function int32_get_size
 
 
 end module integer32_set
