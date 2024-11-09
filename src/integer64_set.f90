@@ -1,42 +1,42 @@
-module integer32_set
+module integer64_set
   use, intrinsic :: iso_c_binding
   use :: constants_f90
   implicit none
 
 
-  type :: int32_set
-    integer(c_int32_t), dimension(:), pointer :: data => null()
-    integer(c_int32_t) :: size = 0
+  type :: int64_set
+    integer(c_int64_t), dimension(:), pointer :: data => null()
+    integer(c_int64_t) :: size = 0
   contains
-    procedure :: push => int32_set_push
-    procedure :: clear => int32_set_clear
-    procedure :: pop => int32_set_pop
-    procedure :: sort => int32_sort
-    procedure :: destroy => int32_destroy
-  end type int32_set
+    procedure :: push => int64_set_push
+    procedure :: clear => int64_set_clear
+    procedure :: pop => int64_set_pop
+    procedure :: sort => int64_sort
+    procedure :: destroy => int64_destroy
+  end type int64_set
 
 
 contains
 
 
-  function new_int32_set() result(a)
+  function new_int64_set() result(a)
     implicit none
 
-    type(int32_set) :: a
+    type(int64_set) :: a
 
     allocate(a%data(0))
     a%size = 0
-  end function new_int32_set
+  end function new_int64_set
 
 
-  subroutine int32_set_push(this, new_value)
+  subroutine int64_set_push(this, new_value)
     implicit none
 
-    class(int32_set), intent(inout) :: this
-    integer(c_int32_t), intent(in), value :: new_value
-    integer(c_int32_t) :: i
+    class(int64_set), intent(inout) :: this
+    integer(c_int64_t), intent(in), value :: new_value
+    integer(c_int64_t) :: i
     logical(c_bool) :: found
-    integer(c_int32_t), dimension(:), pointer :: new_data
+    integer(c_int64_t), dimension(:), pointer :: new_data
 
     found = .false.
 
@@ -65,30 +65,30 @@ contains
     this%data => new_data
 
     this%size = this%size + 1
-  end subroutine int32_set_push
+  end subroutine int64_set_push
 
 
-  subroutine int32_set_clear(this)
+  subroutine int64_set_clear(this)
     implicit none
 
-    class(int32_set), intent(inout) :: this
+    class(int64_set), intent(inout) :: this
 
     ! This is pretty simple, just clearing out all data and reset the size.
     this%size = 0
 
     deallocate(this%data)
     allocate(this%data(0))
-  end subroutine int32_set_clear
+  end subroutine int64_set_clear
 
 
-  subroutine int32_set_pop(this, value_to_pop)
+  subroutine int64_set_pop(this, value_to_pop)
     implicit none
 
-    class(int32_set), intent(inout) :: this
-    integer(c_int32_t), intent(in), value :: value_to_pop
+    class(int64_set), intent(inout) :: this
+    integer(c_int64_t), intent(in), value :: value_to_pop
     logical(c_bool) :: found
-    integer(c_int32_t) :: i, j
-    integer(c_int32_t), dimension(:), pointer :: new_data
+    integer(c_int64_t) :: i, j
+    integer(c_int64_t), dimension(:), pointer :: new_data
 
     found = .false.
 
@@ -122,16 +122,16 @@ contains
     this%data => new_data
 
     this%size = this%size - 1
-  end subroutine int32_set_pop
+  end subroutine int64_set_pop
 
 
-  subroutine int32_sort(this)
+  subroutine int64_sort(this)
     implicit none
 
-    class(int32_set), intent(inout) :: this
-    integer(c_int32_t) :: current, current_index
-    integer(c_int32_t) :: i
-    integer(c_int32_t), dimension(:), pointer :: new_data
+    class(int64_set), intent(inout) :: this
+    integer(c_int64_t) :: current, current_index
+    integer(c_int64_t) :: i
+    integer(c_int64_t), dimension(:), pointer :: new_data
 
     allocate(new_data(this%size))
 
@@ -150,17 +150,17 @@ contains
     ! Now deallocate old and swap the pointers.
     deallocate(this%data)
     this%data => new_data
-  end subroutine int32_sort
+  end subroutine int64_sort
 
 
-  subroutine int32_destroy(this)
+  subroutine int64_destroy(this)
     implicit none
 
-    class(int32_set), intent(inout) :: this
+    class(int64_set), intent(inout) :: this
 
     deallocate(this%data)
     this%size = -1
-  end subroutine int32_destroy
+  end subroutine int64_destroy
 
 
-end module integer32_set
+end module integer64_set
