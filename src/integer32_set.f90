@@ -24,6 +24,7 @@ contains
     type(int32_set) :: a
 
     allocate(a%data(0))
+    a%size = 0
   end function new_int32_set
 
 
