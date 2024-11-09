@@ -1,5 +1,6 @@
 module integer32_set
   use, intrinsic :: iso_c_binding
+  use :: constants_f90
   implicit none
 
 
