@@ -4,10 +4,12 @@ module integer32_set
 
 
   type :: int32_set
+    private
     integer(c_int32_t), dimension(:), pointer :: data => null()
-    integer(c_int32_t) :: size = 0
+    integer(c_int32_t) :: size_internal = 0
   contains
-
+    procedure :: push => int32_set_push
+    procedure :: size => int32_get_size
   end type int32_set
 
 
@@ -35,7 +37,7 @@ contains
     found = .false.
 
     ! See if it's in there
-    do i = 1,this%size
+    do i = 1,this%size_internal
       if (this%data(i) == new_value) then
         found = .true.
         exit
@@ -44,15 +46,15 @@ contains
 
     ! If not, add it in to a new pointer.
     if (.not. found) then
-      allocate(new_data(this%size + 1))
-      do i = 1,this%size
+      allocate(new_data(this%size_internal + 1))
+      do i = 1,this%size_internal
         new_data(i) = this%data(i)
       end do
-      new_data(this%size + 1) = new_value
+      new_data(this%size_internal + 1) = new_value
 
       deallocate(this%data)
       this%data => new_data
-      this%size = this%size + 1
+      this%size_internal = this%size_internal + 1
     end if
   end subroutine int32_set_push
 
