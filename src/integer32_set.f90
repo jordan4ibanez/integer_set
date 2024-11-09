@@ -74,4 +74,48 @@ contains
   end subroutine int32_set_clear
 
 
+  subroutine int32_set_pop(this, value_to_pop)
+    implicit none
+
+    type(int32_set), intent(inout) :: this
+    integer(c_int32_t), intent(in), value :: value_to_pop
+    logical(c_bool) :: found
+    integer(c_int32_t) :: i, j
+    integer(c_int32_t), dimension(:), pointer :: new_data
+
+    found = .false.
+
+    ! See if we have this value.
+    do i = 1,this%size
+      if (this%data(i) == value_to_pop) then
+        found = .true.
+      end if
+    end do
+
+    ! If we don't, nothing to do.
+    if (.not. found) then
+      return
+    end if
+
+    allocate(new_data(this%size - 1))
+
+    ! Now, we want to skip the popped value, so we're going to make this an asynchronous index.
+    j = 1
+    do i = 1,this%size
+      if (this%data(i) == value_to_pop) then
+        cycle
+      end if
+
+      new_data(j) = this%data(i)
+      j = j + 1
+    end do
+
+    ! Now we deallocate and swap in the new pointer.
+    deallocate(this%data)
+    this%data => new_data
+
+    this%size = this%size - 1
+  end subroutine int32_set_pop
+
+
 end module integer32_set
