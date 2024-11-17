@@ -119,6 +119,7 @@ contains
     do i = 1,this%size
       if (this%data(i) == value_to_pop) then
         found = .true.
+        exit
       end if
     end do
 
